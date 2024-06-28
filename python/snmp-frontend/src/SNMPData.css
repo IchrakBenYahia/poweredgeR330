@@ -1,0 +1,117 @@
+.snmp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap; /* Ajouté pour permettre le wrap des contenus */
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    flex-direction: row; /* Par défaut, afficher en ligne */
+}
+
+.left-content, .right-content {
+    flex-grow: 1;
+    margin: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.image-container {
+    position: relative;
+    max-width: 100%;
+}
+
+.centered-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.icon-row {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 0 100px;
+    box-sizing: border-box;
+}
+
+.fan-icon {
+    font-size: 24px;
+    margin: 0 5px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.warning-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overall-icons {
+    display: flex;
+    justify-content: center;
+}
+
+/* Média queries pour les petits écrans */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Afficher en colonne */
+        align-items: center; /* Centrer les éléments */
+    }
+
+    .left-content, .right-content {
+        margin: 0;
+        width: 100%; /* Prendre toute la largeur disponible */
+    }
+
+    .icon-row {
+        padding: 0 20px; /* Réduire le padding pour les petits écrans */
+    }
+
+    .warning-icon img {
+        width: 80px; /* Réduire la taille de l'icône pour les petits écrans */
+    }
+
+    .overall-icon {
+        font-size: 16px; /* Réduire la taille des icônes pour les petits écrans */
+        margin: 0 10px; /* Réduire l'espace entre les icônes pour les petits écrans */
+    }
+}
