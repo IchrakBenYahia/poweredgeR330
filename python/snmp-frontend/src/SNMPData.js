@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './SNMPData.css';
-import { faCheck, faTimes, faFan } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes, faFan, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 const SNMPData = () => {
     const [data, setData] = useState([]);
@@ -36,29 +35,34 @@ const SNMPData = () => {
     };
 
     const filterEtatDisque = (data) => {
-        const EtatDisque = data.filter(item => item.name.includes('Etat des disques'));
-        setEtatDisque(EtatDisque);
+        const etatDisque = data.filter(item => item.name.includes('Etat des disques'));
+        setEtatDisque(etatDisque);
     };
 
     const filterEtatSystem = (data) => {
-        const EtatSystem = data.filter(item => item.name.includes('Etat système'));
-        setEtatSystem(EtatSystem);
+        const etatSystem = data.filter(item => item.name.includes('Etat système'));
+        setEtatSystem(etatSystem);
     };
 
     const renderFanIcon = (fan) => {
         if (fan.name.includes('Etat ventilateur')) {
             return (
-                <FontAwesomeIcon 
-                    icon={faFan} 
-                    className="fan-icon" 
-                    style={{ color: fan.value === '3' ? 'green' : 'red' }} 
-                    title={`Fan state for ${fan.name}`} 
+                <FontAwesomeIcon
+                    icon={faFan}
+                    className="fan-icon"
+                    style={{ color: fan.value === '3' ? 'green' : 'red' }}
+                    title={`Fan state for ${fan.name}`}
                 />
             );
         } else if (fan.name.includes('Etat système') && fan.value !== '3') {
             return (
                 <div className="warning-icon">
-                    <img className="warning-icon" style={{ width: '136px' }}  src={`${process.env.PUBLIC_URL}/triangle_Danger.png`} alt="Warning: System state" />
+                    <img
+                        className="warning-icon"
+                        style={{ width: '136px' }}
+                        src={`${process.env.PUBLIC_URL}/triangle_Danger.png`}
+                        alt="Warning: System state"
+                    />
                 </div>
             );
         } else {
@@ -67,19 +71,19 @@ const SNMPData = () => {
     };
 
     const renderOverallIcons = () => {
-        const hasWarning =  etatDisque.some(item => item.value !== '3');
+        const hasWarning = etatDisque.some(item => item.value !== '3');
         const icon = hasWarning ? faTimes : faCheck;
         const color = hasWarning ? 'red' : 'green';
-    
+
         return (
             <div className="overall-icons">
                 {Array.from({ length: 4 }).map((_, index) => (
-                    <FontAwesomeIcon 
+                    <FontAwesomeIcon
                         key={index}
-                        icon={icon} 
-                        className="overall-icon" 
-                        style={{ color, fontSize: '20px', margin: '0 50px' }}  // Adjusted margin here
-                        title={hasWarning ? 'Error detected' : 'All systems operational'} 
+                        icon={icon}
+                        className="overall-icon"
+                        style={{ color, fontSize: '20px', margin: '0 50px' }}
+                        title={hasWarning ? 'Error detected' : 'All systems operational'}
                     />
                 ))}
             </div>
@@ -90,7 +94,7 @@ const SNMPData = () => {
         switch (name) {
             case 'T° air aspiré':
             case 'T° processeur':
-                return '°c';
+                return '°C';
             case 'Tension':
                 return 'Volt';
             case 'Courant':
@@ -118,11 +122,11 @@ const SNMPData = () => {
                 return { min: -Infinity, max: Infinity };
         }
     };
-    
+
     const renderValue = (value, name) => {
         let val = value;
         const thresholds = getThresholds(name);
-    
+
         switch (name) {
             case 'Etat du serveur':
                 if (value !== '3') {
@@ -152,10 +156,10 @@ const SNMPData = () => {
             default:
                 break;
         }
-    
+
         const isNumeric = !isNaN(parseFloat(val)) && isFinite(val);
         const isOutOfRange = isNumeric && (parseFloat(val) < thresholds.min || parseFloat(val) > thresholds.max);
-    
+
         if (name === 'Etat du serveur') {
             return val;
         } else {
@@ -166,7 +170,6 @@ const SNMPData = () => {
             );
         }
     };
-    
 
     return (
         <div className="snmp-container">
