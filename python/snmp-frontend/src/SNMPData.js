@@ -129,7 +129,7 @@ const SNMPData = () => {
 
         switch (name) {
             case 'Etat du serveur':
-                if (value !== '3') {
+                if (value == '3') {
                     val = (
                         <>
                             <FontAwesomeIcon icon={faTimes} style={{ color: 'red' }} /> Off
