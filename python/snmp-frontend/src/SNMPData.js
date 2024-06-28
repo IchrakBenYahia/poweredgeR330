@@ -153,13 +153,14 @@ const SNMPData = () => {
                 break;
         }
     
-        const isOutOfRange = parseFloat(val) < thresholds.min || parseFloat(val) > thresholds.max;
+        const isNumeric = !isNaN(parseFloat(val)) && isFinite(val);
+        const isOutOfRange = isNumeric && (parseFloat(val) < thresholds.min || parseFloat(val) > thresholds.max);
     
         if (name === 'Etat du serveur') {
             return val;
         } else {
             return (
-                <span style={{ color: isOutOfRange ? 'red' : 'green' }}>
+                <span style={{ color: !isNumeric ? 'red' : isOutOfRange ? 'red' : 'green' }}>
                     {val}
                 </span>
             );

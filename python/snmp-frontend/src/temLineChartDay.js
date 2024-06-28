@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
 const TemperatureLineChartDay = () => {
   const [chartData, setChartData] = useState([]);
@@ -29,8 +29,9 @@ const TemperatureLineChartDay = () => {
       <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" />
       <XAxis dataKey="jour" />
-      <YAxis />
+      <YAxis domain={[0, 60]} /> {/* Set domain to include 50 */}
       <Tooltip />
+      <ReferenceLine y={50} stroke="red" label={{ position: 'insideRight', value: '50°C', fill: 'red', fontSize: 12 }} />
     </LineChart>
     </ResponsiveContainer>
   );
